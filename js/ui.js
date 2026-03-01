@@ -415,16 +415,16 @@ function buildEpisodes(showId, episodes = [], seasonNum = 1) {
 function buildPlayerPage(type, id, season, episode, title) {
   const sources = type === 'movie'
     ? [
-      { label: 'VidSrc', url: `https://vidsrc.to/embed/movie/${id}` },
-      { label: 'VidSrc2', url: `https://vidsrc.xyz/embed/movie?tmdb=${id}` },
-      { label: 'VidKing', url: `https://www.vidking.net/embed/movie/${id}` },
+      { label: 'VidSrc', url: `https://vidsrc.cc/v2/embed/movie/${id}` },
+      { label: 'Embed.su', url: `https://embed.su/embed/movie/${id}` },
+      { label: 'AutoEmbed', url: `https://autoembed.co/movie/tmdb/${id}` },
       { label: '2Embed', url: `https://www.2embed.cc/embed/${id}` },
       { label: 'SuperEmbed', url: `https://multiembed.mov/?video_id=${id}&tmdb=1` },
     ]
     : [
-      { label: 'VidSrc', url: `https://vidsrc.to/embed/tv/${id}/${season}/${episode}` },
-      { label: 'VidSrc2', url: `https://vidsrc.xyz/embed/tv?tmdb=${id}&season=${season}&episode=${episode}` },
-      { label: 'VidKing', url: `https://www.vidking.net/embed/tv/${id}/${season}/${episode}` },
+      { label: 'VidSrc', url: `https://vidsrc.cc/v2/embed/tv/${id}?season=${season}&episode=${episode}` },
+      { label: 'Embed.su', url: `https://embed.su/embed/tv/${id}/${season}/${episode}` },
+      { label: 'AutoEmbed', url: `https://autoembed.co/tv/tmdb/${id}-${season}-${episode}` },
       { label: '2Embed', url: `https://www.2embed.cc/embedtv/${id}&s=${season}&e=${episode}` },
       { label: 'SuperEmbed', url: `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${season}&e=${episode}` },
     ];
