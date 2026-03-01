@@ -449,7 +449,8 @@ function buildPlayerPage(type, id, season, episode, title) {
         src="${sources[0].url}"
         allowfullscreen
         referrerpolicy="no-referrer"
-        allow="fullscreen; autoplay; picture-in-picture"
+        allow="fullscreen; autoplay; picture-in-picture; encrypted-media"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-pointer-lock"
         scrolling="no"
         frameborder="0"
       ></iframe>
