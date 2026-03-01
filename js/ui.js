@@ -416,15 +416,25 @@ function buildPlayerPage(type, id, season, episode, title) {
   const sources = type === 'movie'
     ? [
       { label: 'VidSrc', url: `https://vidsrc.cc/v2/embed/movie/${id}` },
+      { label: 'VidLink', url: `https://www.vidlink.pro/movie/${id}` },
       { label: 'Embed.su', url: `https://embed.su/embed/movie/${id}` },
       { label: 'AutoEmbed', url: `https://autoembed.co/movie/tmdb/${id}` },
+      { label: 'SmashyStream', url: `https://player.smashy.stream/movie/${id}` },
+      { label: 'VidSrc.me', url: `https://vidsrc.me/embed/movie?tmdb=${id}` },
+      { label: 'MoviesAPI', url: `https://moviesapi.club/movie/${id}` },
+      { label: 'NontonFilm', url: `https://nontonfilm.uno/embed/movie?tmdb=${id}` },
       { label: '2Embed', url: `https://www.2embed.cc/embed/${id}` },
       { label: 'SuperEmbed', url: `https://multiembed.mov/?video_id=${id}&tmdb=1` },
     ]
     : [
       { label: 'VidSrc', url: `https://vidsrc.cc/v2/embed/tv/${id}?season=${season}&episode=${episode}` },
+      { label: 'VidLink', url: `https://www.vidlink.pro/tv/${id}/${season}/${episode}` },
       { label: 'Embed.su', url: `https://embed.su/embed/tv/${id}/${season}/${episode}` },
       { label: 'AutoEmbed', url: `https://autoembed.co/tv/tmdb/${id}-${season}-${episode}` },
+      { label: 'SmashyStream', url: `https://player.smashy.stream/tv/${id}?s=${season}&e=${episode}` },
+      { label: 'VidSrc.me', url: `https://vidsrc.me/embed/tv?tmdb=${id}&season=${season}&episode=${episode}` },
+      { label: 'MoviesAPI', url: `https://moviesapi.club/tv/${id}-${season}-${episode}` },
+      { label: 'NontonFilm', url: `https://nontonfilm.uno/embed/tv?tmdb=${id}&season=${season}&episode=${episode}` },
       { label: '2Embed', url: `https://www.2embed.cc/embedtv/${id}&s=${season}&e=${episode}` },
       { label: 'SuperEmbed', url: `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${season}&e=${episode}` },
     ];
