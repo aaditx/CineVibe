@@ -108,6 +108,10 @@ const CV = (() => {
         // Scroll to top
         window.scrollTo(0, 0);
 
+        // Always show navbar (player will hide it)
+        const navbar = document.getElementById('navbar');
+        if (navbar) navbar.style.display = '';
+
         // Update active nav
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
 
@@ -287,6 +291,10 @@ const CV = (() => {
     async function renderPlayer(type, id, season, episode) {
         const app = document.getElementById('app');
         let title = '';
+
+        // Hide the site navbar — player has its own topbar
+        const navbar = document.getElementById('navbar');
+        if (navbar) navbar.style.display = 'none';
 
         // Try to get title from TMDB
         try {
