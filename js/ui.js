@@ -460,7 +460,6 @@ function buildPlayerPage(type, id, season, episode, title) {
         allowfullscreen
         referrerpolicy="no-referrer"
         allow="fullscreen; autoplay; picture-in-picture; encrypted-media"
-        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-pointer-lock"
         scrolling="no"
         frameborder="0"
       ></iframe>
@@ -469,6 +468,18 @@ function buildPlayerPage(type, id, season, episode, title) {
         ${sourceBtns}
       </div>
     </div>
+    <script>
+      // Block popup windows opened by embed players
+      (function() {
+        const _open = window.open.bind(window);
+        window.open = function(url, name, features) {
+          // Allow legitimate fullscreen/pip popups (blank target or undefined)
+          if (!url || url === 'about:blank') return _open(url, name, features);
+          // Block all other popup attempts silently
+          return null;
+        };
+      })();
+    </script>
   `;
 }
 
