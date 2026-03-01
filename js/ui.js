@@ -5,8 +5,8 @@
 
 // ── Browse Dropdown ───────────────────────────────────────
 function buildBrowseDropdown() {
-    const adsEnabled = localStorage.getItem('cv_ads') !== 'false';
-    return `
+  const adsEnabled = localStorage.getItem('cv_ads') !== 'false';
+  return `
     <div class="dropdown-section-title">Content</div>
     <div class="dropdown-grid">
       <div class="dropdown-item" data-nav="browse/movies">
@@ -67,16 +67,16 @@ function buildBrowseDropdown() {
 
 // ── Hero Section ──────────────────────────────────────────
 function buildHero(items) {
-    if (!items || !items.length) return `<div class="skeleton skeleton-hero"></div>`;
-    const slides = items.slice(0, 8).map((item, i) => {
-        const type = item.media_type || 'movie';
-        const title = getTitle(item);
-        const year = getYear(item);
-        const rating = getRating(item);
-        const desc = item.overview || '';
-        const backdrop = tmdbBackdrop(item.backdrop_path, 'original');
-        const genres = getGenreNames(item.genre_ids || [], type).join(' &nbsp;·&nbsp; ');
-        return `
+  if (!items || !items.length) return `<div class="skeleton skeleton-hero"></div>`;
+  const slides = items.slice(0, 8).map((item, i) => {
+    const type = item.media_type || 'movie';
+    const title = getTitle(item);
+    const year = getYear(item);
+    const rating = getRating(item);
+    const desc = item.overview || '';
+    const backdrop = tmdbBackdrop(item.backdrop_path, 'original');
+    const genres = getGenreNames(item.genre_ids || [], type).join(' &nbsp;·&nbsp; ');
+    return `
       <div class="hero-slide ${i === 0 ? 'active' : ''}" data-index="${i}">
         ${backdrop ? `<img class="hero-backdrop" src="${backdrop}" alt="${title}" loading="${i === 0 ? 'eager' : 'lazy'}" />` : ''}
         <div class="hero-content">
@@ -104,13 +104,13 @@ function buildHero(items) {
         </div>
       </div>
     `;
-    });
+  });
 
-    const dots = items.slice(0, 8).map((_, i) =>
-        `<div class="hero-dot ${i === 0 ? 'active' : ''}" data-dot="${i}"></div>`
-    ).join('');
+  const dots = items.slice(0, 8).map((_, i) =>
+    `<div class="hero-dot ${i === 0 ? 'active' : ''}" data-dot="${i}"></div>`
+  ).join('');
 
-    return `
+  return `
     <section class="hero" id="hero-section">
       <div class="hero-slides">${slides.join('')}</div>
       <div class="hero-indicators" id="hero-indicators">${dots}</div>
@@ -120,12 +120,12 @@ function buildHero(items) {
 
 // ── Card ──────────────────────────────────────────────────
 function buildCard(item) {
-    const type = item.media_type || 'movie';
-    const title = getTitle(item);
-    const rating = getRating(item);
-    const year = getYear(item);
-    const poster = tmdbImg(item.poster_path, 'w342');
-    return `
+  const type = item.media_type || 'movie';
+  const title = getTitle(item);
+  const rating = getRating(item);
+  const year = getYear(item);
+  const poster = tmdbImg(item.poster_path, 'w342');
+  return `
     <div class="card" data-id="${item.id}" data-type="${type}" onclick="CV.navigate('${type}/${item.id}')">
       <div class="card-poster">
         <img class="card-img" src="${poster}" alt="${title}" loading="lazy" />
@@ -151,7 +151,7 @@ function buildCard(item) {
 
 // ── Top 10 Row ────────────────────────────────────────────
 function buildTop10(items) {
-    const cards = items.slice(0, 10).map((item, i) => `
+  const cards = items.slice(0, 10).map((item, i) => `
     <div class="top10-item">
       <span class="top10-number">${i + 1}</span>
       <div class="top10-card" onclick="CV.navigate('${(item.media_type || 'movie')}/${item.id}')">
@@ -160,7 +160,7 @@ function buildTop10(items) {
     </div>
   `).join('');
 
-    return `
+  return `
     <section class="top10-section" id="top10-section">
       <div class="top10-header">
         <div class="top10-big-text">
@@ -184,11 +184,11 @@ function buildTop10(items) {
 
 // ── Content Row ───────────────────────────────────────────
 function buildRow(title, items, { rowId, tabs = null } = {}) {
-    const trackId = `track-${rowId}`;
-    const cards = (items || []).map(buildCard).join('');
-    const skeletons = Array(8).fill(`<div class="skeleton skeleton-card"></div>`).join('');
+  const trackId = `track-${rowId}`;
+  const cards = (items || []).map(buildCard).join('');
+  const skeletons = Array(8).fill(`<div class="skeleton skeleton-card"></div>`).join('');
 
-    const tabsHtml = tabs ? `
+  const tabsHtml = tabs ? `
     <div class="row-tabs" data-row="${rowId}">
       ${tabs.map((t, i) => `
         <button class="row-tab ${i === 0 ? 'active' : ''}" data-tab="${t.value}" onclick="CV.switchTab(this, '${rowId}', '${t.value}')">
@@ -198,7 +198,7 @@ function buildRow(title, items, { rowId, tabs = null } = {}) {
     </div>
   ` : '';
 
-    return `
+  return `
     <section class="content-section" id="section-${rowId}">
       <div class="row-header">
         <div class="row-title-wrap">
@@ -224,14 +224,14 @@ function buildRow(title, items, { rowId, tabs = null } = {}) {
 
 // ── Genre Section ─────────────────────────────────────────
 function buildGenreSection(activeGenre = 'Action') {
-    const genres = ['Comedy', 'Action', 'Horror', 'Romance', 'SciFi', 'Drama', 'Animation', 'Thriller'];
-    const tabs = genres.map(g => `
+  const genres = ['Comedy', 'Action', 'Horror', 'Romance', 'SciFi', 'Drama', 'Animation', 'Thriller'];
+  const tabs = genres.map(g => `
     <button class="genre-tab ${g === activeGenre ? 'active' : ''}" data-genre="${g}" onclick="CV.switchGenre('${g}')">
       ${g}
     </button>
   `).join('');
 
-    return `
+  return `
     <section class="genre-section" id="genre-section">
       <div class="row-header">
         <div class="row-title-wrap">
@@ -255,7 +255,7 @@ function buildGenreSection(activeGenre = 'Action') {
 
 // ── Footer ────────────────────────────────────────────────
 function buildFooter() {
-    return `
+  return `
     <footer class="site-footer">
       <div class="footer-logo">
         <div class="footer-logo-icon">
@@ -276,19 +276,19 @@ function buildFooter() {
 
 // ── Detail Page ───────────────────────────────────────────
 function buildDetailPage(item, type, recommendations = []) {
-    const title = getTitle(item);
-    const year = getYear(item);
-    const rating = getRating(item);
-    const backdrop = tmdbBackdrop(item.backdrop_path, 'original');
-    const poster = tmdbImg(item.poster_path, 'w342');
-    const desc = item.overview || '';
-    const cast = (item.credits && item.credits.cast) ? item.credits.cast.slice(0, 15) : [];
-    const genres = (item.genres || []).map(g => g.name).join(' · ');
-    const runtime = type === 'movie' ? item.runtime : null;
-    const seasons = type === 'tv' ? item.seasons : null;
-    const isInList = CV.isInWatchlist(item.id, type);
+  const title = getTitle(item);
+  const year = getYear(item);
+  const rating = getRating(item);
+  const backdrop = tmdbBackdrop(item.backdrop_path, 'original');
+  const poster = tmdbImg(item.poster_path, 'w342');
+  const desc = item.overview || '';
+  const cast = (item.credits && item.credits.cast) ? item.credits.cast.slice(0, 15) : [];
+  const genres = (item.genres || []).map(g => g.name).join(' · ');
+  const runtime = type === 'movie' ? item.runtime : null;
+  const seasons = type === 'tv' ? item.seasons : null;
+  const isInList = CV.isInWatchlist(item.id, type);
 
-    const castHtml = cast.length ? `
+  const castHtml = cast.length ? `
     <div class="detail-section">
       <h3 class="detail-section-title">Cast</h3>
       <div class="cast-track">
@@ -303,7 +303,7 @@ function buildDetailPage(item, type, recommendations = []) {
     </div>
   ` : '';
 
-    const recsHtml = recommendations.length ? `
+  const recsHtml = recommendations.length ? `
     <div class="detail-section">
       <h3 class="detail-section-title">More Like This</h3>
       <div class="carousel-wrap">
@@ -320,15 +320,15 @@ function buildDetailPage(item, type, recommendations = []) {
     </div>
   ` : '';
 
-    const episodesHtml = type === 'tv' && seasons ? buildSeasonSelector(item, seasons) : '';
+  const episodesHtml = type === 'tv' && seasons ? buildSeasonSelector(item, seasons) : '';
 
-    const metaExtras = type === 'movie' && runtime
-        ? `<span class="meta-chip">${Math.floor(runtime / 60)}h ${runtime % 60}m</span>`
-        : type === 'tv' && item.number_of_seasons
-            ? `<span class="meta-chip">${item.number_of_seasons} Season${item.number_of_seasons > 1 ? 's' : ''}</span>`
-            : '';
+  const metaExtras = type === 'movie' && runtime
+    ? `<span class="meta-chip">${Math.floor(runtime / 60)}h ${runtime % 60}m</span>`
+    : type === 'tv' && item.number_of_seasons
+      ? `<span class="meta-chip">${item.number_of_seasons} Season${item.number_of_seasons > 1 ? 's' : ''}</span>`
+      : '';
 
-    return `
+  return `
     <div class="detail-page">
       <div class="detail-hero">
         ${backdrop ? `<img class="detail-backdrop" src="${backdrop}" alt="${title}" />` : ''}
@@ -373,12 +373,12 @@ function buildDetailPage(item, type, recommendations = []) {
 
 // ── Season Selector ───────────────────────────────────────
 function buildSeasonSelector(show, seasons, activeSeason = 1) {
-    const realSeasons = seasons.filter(s => s.season_number > 0);
-    const seasonOpts = realSeasons.map(s =>
-        `<option value="${s.season_number}" ${s.season_number === activeSeason ? 'selected' : ''}>${s.name}</option>`
-    ).join('');
+  const realSeasons = seasons.filter(s => s.season_number > 0);
+  const seasonOpts = realSeasons.map(s =>
+    `<option value="${s.season_number}" ${s.season_number === activeSeason ? 'selected' : ''}>${s.name}</option>`
+  ).join('');
 
-    return `
+  return `
     <div class="detail-section" id="episodes-section">
       <h3 class="detail-section-title">Episodes</h3>
       <div class="season-selector">
@@ -396,7 +396,7 @@ function buildSeasonSelector(show, seasons, activeSeason = 1) {
 }
 
 function buildEpisodes(showId, episodes = [], seasonNum = 1) {
-    return episodes.map(ep => `
+  return episodes.map(ep => `
     <div class="episode-card" onclick="CV.navigate('watch/tv/${showId}/${seasonNum}/${ep.episode_number}')">
       <img class="ep-thumb" src="${ep.still_path ? tmdbImg(ep.still_path, 'w185') : 'https://via.placeholder.com/100x60/1a1a2e/666?text=EP'}" alt="Episode ${ep.episode_number}" loading="lazy" />
       <div class="ep-info">
@@ -413,17 +413,29 @@ function buildEpisodes(showId, episodes = [], seasonNum = 1) {
 
 // ── Player Page ───────────────────────────────────────────
 function buildPlayerPage(type, id, season, episode, title) {
-    let embedUrl;
-    if (type === 'movie') {
-        embedUrl = `https://www.vidking.net/embed/movie/${id}`;
-    } else {
-        embedUrl = `https://www.vidking.net/embed/tv/${id}/${season}/${episode}`;
-    }
+  const sources = type === 'movie'
+    ? [
+      { label: 'VidSrc', url: `https://vidsrc.to/embed/movie/${id}` },
+      { label: 'VidSrc2', url: `https://vidsrc.xyz/embed/movie?tmdb=${id}` },
+      { label: 'VidKing', url: `https://www.vidking.net/embed/movie/${id}` },
+      { label: '2Embed', url: `https://www.2embed.cc/embed/${id}` },
+      { label: 'SuperEmbed', url: `https://multiembed.mov/?video_id=${id}&tmdb=1` },
+    ]
+    : [
+      { label: 'VidSrc', url: `https://vidsrc.to/embed/tv/${id}/${season}/${episode}` },
+      { label: 'VidSrc2', url: `https://vidsrc.xyz/embed/tv?tmdb=${id}&season=${season}&episode=${episode}` },
+      { label: 'VidKing', url: `https://www.vidking.net/embed/tv/${id}/${season}/${episode}` },
+      { label: '2Embed', url: `https://www.2embed.cc/embedtv/${id}&s=${season}&e=${episode}` },
+      { label: 'SuperEmbed', url: `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${season}&e=${episode}` },
+    ];
 
-    const episodeInfo = type === 'tv' ? ` · S${season} E${episode}` : '';
+  const episodeInfo = type === 'tv' ? ` &middot; S${season} E${episode}` : '';
+  const sourceBtns = sources.map((s, i) =>
+    `<button class="source-btn ${i === 0 ? 'active' : ''}" onclick="CV.switchSource('${s.url}', this)">${s.label}</button>`
+  ).join('');
 
-    return `
-    <div class="player-page">
+  return `
+    <div class="player-page" id="player-page">
       <div class="player-topbar">
         <div class="player-back" onclick="history.back()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -432,29 +444,34 @@ function buildPlayerPage(type, id, season, episode, title) {
         <div class="player-title">${title || ''}${episodeInfo}</div>
       </div>
       <iframe
+        id="player-iframe"
         class="player-embed"
-        src="${embedUrl}"
+        src="${sources[0].url}"
         allowfullscreen
         referrerpolicy="no-referrer"
         allow="fullscreen; autoplay; picture-in-picture"
         scrolling="no"
         frameborder="0"
       ></iframe>
+      <div class="source-bar">
+        <span class="source-label">Source:</span>
+        ${sourceBtns}
+      </div>
     </div>
   `;
 }
 
 // ── Browse Page ───────────────────────────────────────────
 function buildBrowsePage(type, items, title, genreFilters = []) {
-    const genres = [
-        { label: 'All', value: 'all' },
-        ...genreFilters,
-    ];
-    const filterHtml = genres.map((g, i) =>
-        `<button class="filter-chip ${i === 0 ? 'active' : ''}" data-genre="${g.value}" onclick="CV.filterBrowse(this, '${type}', '${g.value}')">${g.label}</button>`
-    ).join('');
+  const genres = [
+    { label: 'All', value: 'all' },
+    ...genreFilters,
+  ];
+  const filterHtml = genres.map((g, i) =>
+    `<button class="filter-chip ${i === 0 ? 'active' : ''}" data-genre="${g.value}" onclick="CV.filterBrowse(this, '${type}', '${g.value}')">${g.label}</button>`
+  ).join('');
 
-    return `
+  return `
     <div class="browse-page">
       <div class="browse-page-header">
         <h1 class="browse-page-title">${title}</h1>
@@ -472,37 +489,37 @@ function buildBrowsePage(type, items, title, genreFilters = []) {
 
 // ── Search Results ────────────────────────────────────────
 function buildSearchResults(items, query) {
-    if (!items.length) {
-        return `<div class="search-status">No results for "<strong>${query}</strong>"</div>`;
-    }
-    return items.map(item => buildCard(item)).join('');
+  if (!items.length) {
+    return `<div class="search-status">No results for "<strong>${query}</strong>"</div>`;
+  }
+  return items.map(item => buildCard(item)).join('');
 }
 
 // ── Watchlist Page ────────────────────────────────────────
 function buildWatchlistPage(items) {
-    const empty = `
+  const empty = `
     <div style="text-align:center;padding:80px 20px;color:var(--text-3)">
       <div style="font-size:48px;margin-bottom:16px">❤️</div>
       <div style="font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px">Your watchlist is empty</div>
       <div style="font-size:14px">Save movies and shows to watch later</div>
     </div>
   `;
-    return `
+  return `
     <div class="browse-page">
       <div class="browse-page-header">
         <h1 class="browse-page-title">My Watchlist</h1>
       </div>
       ${items.length
-            ? `<div class="browse-grid">${items.map(buildCard).join('')}</div>`
-            : empty
-        }
+      ? `<div class="browse-grid">${items.map(buildCard).join('')}</div>`
+      : empty
+    }
     </div>
   `;
 }
 
 // ── API Page ──────────────────────────────────────────────
 function buildApiPage() {
-    return `
+  return `
     <div class="browse-page">
       <div class="browse-page-header">
         <h1 class="browse-page-title" style="display:flex;align-items:center;gap:12px">

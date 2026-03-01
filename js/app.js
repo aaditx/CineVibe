@@ -590,6 +590,16 @@ const CV = (() => {
         });
     }
 
+    // ── Source Switcher ───────────────────────────────────────
+    function switchSource(url, btn) {
+        const iframe = document.getElementById('player-iframe');
+        if (!iframe) return;
+        iframe.src = url;
+        // Update active button
+        document.querySelectorAll('.source-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
     // ── Init ──────────────────────────────────────────────────
     function init() {
         initNavbarScroll();
@@ -615,6 +625,7 @@ const CV = (() => {
         loadSeason,
         filterBrowse,
         loadMoreBrowse,
+        switchSource,
         toast,
         init,
     };
